@@ -8,6 +8,6 @@ import 'swiper/css'
 import 'swiper/css/thumbs'
 import 'swiper/css/navigation'
 
-createApp(App).mount('#app')
-
-App.use(MotionPlugin)
+const app = createApp(App)
+app.use(MotionPlugin)
+app.mount('#app')

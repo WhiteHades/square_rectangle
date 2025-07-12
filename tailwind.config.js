@@ -6,7 +6,11 @@ export default {
     './node_modules/spark-ui/**/*.{js,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'pastel-blue': '#a8d8fd',
+      },
+    },
   },
   plugins: [],
 }

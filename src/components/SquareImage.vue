@@ -1,7 +1,7 @@
 <script setup>
-import { cn } from '../lib/utils/utils.js';
+import { cn } from '../lib/utils/utils.js'
 
-const props = defineProps({
+defineProps({
   item: {
     type: Object,
     required: true,
@@ -10,19 +10,35 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
-
+})
 </script>
 
 <template>
-  <a :href="props.item.link" class="group block">
-    <div :class="cn(
-      props.thumbnail ? 'aspect-square w-full rounded-md overflow-hidden' : 'aspect-square w-full rounded-2xl overflow-hidden shadow-lg',
-      'relative'
-    )">
-      <img :src="props.item.src"
-        class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        loading="lazy" decoding="async" alt="" />
+  <component
+    :is="thumbnail ? 'div' : 'a'"
+    :href="!thumbnail ? item.link : null"
+    class="group block rounded-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-pastel-blue"
+  >
+    <div
+      :class="
+        cn(
+          'relative aspect-square w-full overflow-hidden transition-all duration-300',
+          thumbnail
+            ? 'rounded-lg'
+            : 'rounded-xl shadow-lg group-hover:shadow-xl',
+          !thumbnail &&
+            'ring-1 ring-inset ring-slate-200/50 group-hover:ring-4 group-hover:ring-yellow-400'
+        )
+      "
+    >
+      <div class="absolute inset-0 bg-slate-100"></div>
+      <img
+        :src="item.src"
+        alt="Image of a Pokemon"
+        class="absolute inset-0 h-full w-full object-contain p-4 transition-all duration-300 group-hover:scale-110 group-hover:brightness-110"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
-  </a>
+  </component>
 </template>

@@ -43,21 +43,24 @@ const thumbsSwiper = ref(null)
         :thumbs="{ swiper: thumbsSwiper }"
         :navigation="true"
         :space-between="16"
-        class="w-full rounded-2xl shadow-lg"
+        class="w-full rounded-lg shadow-lg"
       >
-        <SwiperSlide v-for="(img, i) in imageItems" :key="i">
-          <SquareImage :item="img" />
+        <SwiperSlide v-for="(item, i) in props.items" :key="i">
+          <component
+            :is="item.type === 'cta' ? CtaBox : SquareImage"
+            :item="item"
+          />
         </SwiperSlide>
       </Swiper>
 
       <!-- Thumbnails strip -->
       <Swiper
         v-if="imageItems.length > 1"
-        @swiper="(swiper) => (thumbsSwiper = swiper)"
         :space-between="8"
         :slides-per-view="Math.min(5, imageItems.length)"
         watch-slides-progress
         class="w-full"
+        @swiper="(swiper) => (thumbsSwiper = swiper)"
       >
         <SwiperSlide v-for="(img, i) in imageItems" :key="`thumb-${i}`">
           <SquareImage :item="img" thumbnail />
@@ -68,9 +71,9 @@ const thumbsSwiper = ref(null)
     <!-- »» Desktop 3‑column grid »» -->
     <div v-else class="grid grid-cols-3 gap-4">
       <component
+        :is="box.type === 'cta' ? CtaBox : SquareImage"
         v-for="(box, i) in props.items"
         :key="i"
-        :is="box.type === 'cta' ? CtaBox : SquareImage"
         :item="box"
       />
     </div>

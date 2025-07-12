@@ -1,36 +1,45 @@
 <script setup>
-import { useMotion } from '@vueuse/motion';
-import { onMounted, ref } from 'vue';
-
-const props = defineProps({
+defineProps({
   item: {
     type: Object,
     required: true,
   },
-});
+})
 
-const box = ref(null);
-
-onMounted(() => {
-  if (box.value) {
-    useMotion(box, {
-      initial: { opacity: 0, y: 20 },
-      enter: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    });
-  }
-});
+// Animation
+const motion = {
+  initial: { opacity: 0, y: 40 },
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 250,
+      damping: 25,
+      mass: 0.5,
+    },
+  },
+}
 </script>
 
 <template>
-  <a :href="props.item.link" class="group block">
-    <div ref="box"
-      class="flex h-full w-full flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-lg transition hover:-translate-y-1 hover:shadow-xl lg:aspect-square lg:p-10">
-      <h3 class="mb-4 text-xl font-semibold tracking-tight md:text-2xl">
-        {{ props.item.title }}
+  <a
+    v-motion="motion"
+    :href="item.link"
+    class="group block h-full rounded-gl focus:outline-none focus-visible:ring-2 focus-visible:ring-pastel-blue"
+  >
+    <div
+      class="flex h-full w-full flex-col items-center justify-center rounded-gl bg-white p-6 text-center shadow-lg ring-1 ring-inset ring-slate-200/50 transition-shadow duration-300 hover:shadow-xl lg:aspect-square lg:p-10"
+    >
+      <h3
+        class="mb-4 text-xl font-semibold tracking-tight text-slate-800 md:text-2xl"
+      >
+        {{ item.title }}
       </h3>
       <button
-        class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white transition-colors duration-300 group-hover:bg-gray-800">
-        {{ props.item.button }}
+        class="rounded-full bg-slate-900 px-6 py-2 text-sm font-medium text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-red-500 group-hover:text-white"
+      >
+        {{ item.button }}
       </button>
     </div>
   </a>
