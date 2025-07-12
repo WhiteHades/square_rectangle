@@ -7,6 +7,7 @@ import { MotionPlugin } from '@vueuse/motion'
 import 'swiper/css'
 import 'swiper/css/thumbs'
 import 'swiper/css/navigation'
+import 'swiper/css/free-mode'
 
 const app = createApp(App)
 app.use(MotionPlugin)

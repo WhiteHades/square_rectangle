@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 50%, #374151 100%) !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  
+  a:focus-visible,
+  button:focus-visible {
+    outline: none;
+  }
+}
